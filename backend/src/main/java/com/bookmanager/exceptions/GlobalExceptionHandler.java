@@ -1,6 +1,6 @@
 package com.bookmanager.exceptions;
 
-import com.bookmanager.dto.ErrorResponse;
+import com.bookmanager.dto.ErrorResponseDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -15,11 +15,11 @@ public class GlobalExceptionHandler {
 
 
     @ExceptionHandler(EmailAlreadyExistsException.class)
-    public ResponseEntity<ErrorResponse> handleEmailAlreadyExists(
+    public ResponseEntity<ErrorResponseDTO> handleEmailAlreadyExists(
             EmailAlreadyExistsException exception
     ) {
 
-        ErrorResponse error = new ErrorResponse(
+        ErrorResponseDTO error = new ErrorResponseDTO(
                 HttpStatus.CONFLICT.value(),
                 exception.getMessage(),
                 LocalDateTime.now()
@@ -32,7 +32,7 @@ public class GlobalExceptionHandler {
 
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<ErrorResponse> handleValidationErrors(
+    public ResponseEntity<ErrorResponseDTO> handleValidationErrors(
             MethodArgumentNotValidException exception
     ) {
 
@@ -46,7 +46,7 @@ public class GlobalExceptionHandler {
                 .toList();
 
 
-        ErrorResponse response = new ErrorResponse(
+        ErrorResponseDTO response = new ErrorResponseDTO(
                 HttpStatus.BAD_REQUEST.value(),
                 String.join(", ", errors),
                 LocalDateTime.now()
@@ -60,11 +60,11 @@ public class GlobalExceptionHandler {
 
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<ErrorResponse> handleGenericException(
+    public ResponseEntity<ErrorResponseDTO> handleGenericException(
             Exception exception
     ) {
 
-        ErrorResponse error = new ErrorResponse(
+        ErrorResponseDTO error = new ErrorResponseDTO(
                 HttpStatus.INTERNAL_SERVER_ERROR.value(),
                 "Erro interno do servidor",
                 LocalDateTime.now()
