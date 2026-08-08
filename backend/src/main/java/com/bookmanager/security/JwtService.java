@@ -1,6 +1,7 @@
 package com.bookmanager.security;
 
 import com.bookmanager.entities.User;
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
@@ -16,25 +17,53 @@ public class JwtService {
     @Value("${jwt.secret}")
     private String secret;
 
-    public String generateToken(User user) {
-
-        SecretKey key = Keys.hmacShaKeyFor(
+    private SecretKey getKey() {
+        return Keys.hmacShaKeyFor(
                 secret.getBytes(StandardCharsets.UTF_8)
         );
+    }
 
-        System.out.println("veja bem : " + key);
+    public String generateToken(User user) {
 
         Date now = new Date();
-        // 24 horas
+
         long expiration = 1000 * 60 * 60 * 24;
-        Date expirationDate = new Date(now.getTime() + expiration);
+
+        Date expirationDate =
+                new Date(now.getTime() + expiration);
 
         return Jwts.builder()
                 .subject(user.getEmail())
                 .claim("id", user.getId())
                 .issuedAt(now)
                 .expiration(expirationDate)
-                .signWith(key)
+                .signWith(getKey())
                 .compact();
+    }
+
+    public String getEmailFromToken(String token) {
+
+        Claims claims = Jwts.parser()
+                .verifyWith(getKey())
+                .build()
+                .parseSignedClaims(token)
+                .getPayload();
+
+        return claims.getSubject();
+    }
+
+    public boolean isTokenValid(String token) {
+
+        try {
+            Jwts.parser()
+                    .verifyWith(getKey())
+                    .build()
+                    .parseSignedClaims(token);
+
+            return true;
+
+        } catch (Exception e) {
+            return false;
+        }
     }
 }

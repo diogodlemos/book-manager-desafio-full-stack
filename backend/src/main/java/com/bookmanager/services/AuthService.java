@@ -3,6 +3,7 @@ package com.bookmanager.services;
 import com.bookmanager.dto.LoginRequestDTO;
 import com.bookmanager.dto.RegisterUserRequestDTO;
 import com.bookmanager.entities.User;
+import com.bookmanager.exceptions.InvalidCredentialsException;
 import com.bookmanager.exceptions.EmailAlreadyExistsException;
 import com.bookmanager.repositories.UserRepository;
 import com.bookmanager.security.JwtService;
@@ -43,7 +44,7 @@ public class AuthService {
         User user = userRepository
                 .findByEmail(request.email())
                 .orElseThrow(() ->
-                        new RuntimeException("Email ou senha inválidos")
+                        new InvalidCredentialsException("Email ou senha inválidos")
                 );
 
 
@@ -51,7 +52,7 @@ public class AuthService {
                 request.password(),
                 user.getPassword()
         )) {
-            throw new RuntimeException("Email ou senha inválidos");
+            throw new InvalidCredentialsException("Email ou senha inválidos");
         }
 
 
