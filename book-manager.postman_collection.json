@@ -169,9 +169,9 @@
               { "key": "Authorization", "value": "Bearer {{token}}" }
             ],
             "url": {
-              "raw": "{{baseUrl}}/books",
+              "raw": "{{baseUrl}}/books/create",
               "host": ["{{baseUrl}}"],
-              "path": ["books"]
+              "path": ["books", "create"]
             },
             "body": {
               "mode": "raw",
@@ -187,9 +187,51 @@
               { "key": "Authorization", "value": "Bearer {{token}}" }
             ],
             "url": {
-              "raw": "{{baseUrl}}/books",
+              "raw": "{{baseUrl}}/books?page=0&size=10",
               "host": ["{{baseUrl}}"],
-              "path": ["books"]
+              "path": ["books"],
+              "query": [
+                { "key": "page", "value": "0", "description": "Número da página (começa em 0)" },
+                { "key": "size", "value": "10", "description": "Itens por página" },
+                { "key": "title", "value": null, "description": "Filtro parcial por título (opcional)", "disabled": true }
+              ]
+            }
+          }
+        },
+        {
+          "name": "List My Books - busca por título",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/books?title=dom&page=0&size=10",
+              "host": ["{{baseUrl}}"],
+              "path": ["books"],
+              "query": [
+                { "key": "title", "value": "dom", "description": "Filtro parcial por título" },
+                { "key": "page", "value": "0" },
+                { "key": "size", "value": "10" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "List My Books - segunda página",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/books?page=1&size=10",
+              "host": ["{{baseUrl}}"],
+              "path": ["books"],
+              "query": [
+                { "key": "page", "value": "1" },
+                { "key": "size", "value": "10" }
+              ]
             }
           }
         },

@@ -11,6 +11,8 @@ import com.bookmanager.exceptions.UnauthorizedOperationException;
 import com.bookmanager.repositories.AuthorRepository;
 import com.bookmanager.repositories.BookRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -46,6 +48,15 @@ public class BookService {
                 .stream()
                 .map(this::toResponse)
                 .toList();
+    }
+
+    @Transactional(readOnly = true)
+    public Page<BookResponseDTO> listByUserPaged(User currentUser, String title, Pageable pageable) {
+        Page<Book> page = (title != null && !title.isBlank())
+                ? bookRepository.findByUserIdAndTitleContainingIgnoreCase(currentUser.getId(), title, pageable)
+                : bookRepository.findByUserId(currentUser.getId(), pageable);
+
+        return page.map(this::toResponse);
     }
 
     @Transactional(readOnly = true)

@@ -16,6 +16,10 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -54,18 +58,27 @@ public class BookController {
     }
 
     @Operation(summary = "Listar meus livros",
-            description = "Retorna apenas os livros pertencentes ao usuário autenticado.")
+            description = "Retorna os livros do usuário autenticado com paginação e busca opcional por título. " +
+                    "Query params: `title` (parcial, case-insensitive), `page` (default 0), `size` (default 10).")
     @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "Lista retornada com sucesso",
-                    content = @Content(array = @ArraySchema(schema = @Schema(implementation = BookResponseDTO.class)))),
+            @ApiResponse(responseCode = "200", description = "Página de livros retornada com sucesso. " +
+                    "O corpo contém `content` (lista de livros), `totalElements`, `totalPages`, `number` e `size`.",
+                    content = @Content(schema = @Schema(implementation = BookResponseDTO.class))),
             @ApiResponse(responseCode = "401", description = "Não autenticado",
                     content = @Content(schema = @Schema(hidden = true)))
     })
     @GetMapping
-    public ResponseEntity<List<BookResponseDTO>> listMyBooks(
+    public ResponseEntity<Page<BookResponseDTO>> listMyBooks(
+            @Parameter(description = "Filtrar por título (parcial, case-insensitive)")
+            @RequestParam(required = false) String title,
+            @Parameter(description = "Número da página (começa em 0)")
+            @RequestParam(defaultValue = "0") int page,
+            @Parameter(description = "Quantidade de itens por página")
+            @RequestParam(defaultValue = "10") int size,
             @Parameter(hidden = true) @AuthenticationPrincipal User currentUser
     ) {
-        return ResponseEntity.ok(bookService.listByUser(currentUser));
+        Pageable pageable = PageRequest.of(page, size, Sort.by("title").ascending());
+        return ResponseEntity.ok(bookService.listByUserPaged(currentUser, title, pageable));
     }
 
     @Operation(summary = "Buscar livro por ID",
