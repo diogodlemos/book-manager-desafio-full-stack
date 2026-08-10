@@ -1,15 +1,32 @@
-import {Link} from "react-router-dom";
-import {useState} from "react";
+import {Link, useNavigate} from "react-router-dom";
+import {type FormEvent, useState} from "react";
+import {useAuth} from "../contexts/AuthContext.tsx";
+import {extractApiError} from "../utils/error.ts";
+import {Alert} from "../components/Alert.tsx";
 
 export function LoginPage() {
 
+    const { login } = useAuth()
+    const navigate = useNavigate()
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const [loading] = useState(false)
+    const [loading, setLoading] = useState(false)
+    const [error, setError] = useState('')
 
 
-    function handleSubmit() {
-
+    async function handleSubmit(e: FormEvent) {
+        e.preventDefault()
+        setError('')
+        setLoading(true)
+        try {
+            console.log("entrou no login")
+            await login({ email, password })
+            // navigate('/books')
+        } catch (err) {
+            setError(extractApiError(err))
+        } finally {
+            setLoading(false)
+        }
     }
 
     return (
@@ -30,6 +47,9 @@ export function LoginPage() {
                             Entre na sua conta
                         </p>
                     </div>
+
+                    {error && <Alert message={error} />}
+
 
                     <div className="rounded-2xl border border-[#e5e4e7] bg-white p-5 shadow-[0_10px_40px_rgba(30,20,50,0.06)] sm:p-8">
 

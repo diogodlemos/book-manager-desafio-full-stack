@@ -27,20 +27,40 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const [token, setToken] = useState<string | null>(() => localStorage.getItem('accessToken'))
 
     const login = useCallback(async (data: LoginRequest) => {
-        const { accessToken } = await authApi.login(data)
+        console.log('LOGIN - enviando:', data)
+
+        const response = await authApi.login(data)
+
+        console.log('LOGIN - resposta:', response)
+
+        const { accessToken } = response
+
+        console.log('LOGIN - accessToken:', accessToken)
+
         localStorage.setItem('accessToken', accessToken)
         setToken(accessToken)
 
-        const payload = JSON.parse(atob(accessToken.split('.')[1])) as { sub: string; id: number }
-        const partial: UserResponse = { id: payload.id, name: '', email: payload.sub }
+        const payload = JSON.parse(
+            atob(accessToken.split('.')[1])
+        ) as {
+            sub: string
+            id: number
+        }
+
+        console.log('LOGIN - payload:', payload)
+
+        const partial: UserResponse = {
+            id: payload.id,
+            name: '',
+            email: payload.sub,
+        }
+
         localStorage.setItem('user', JSON.stringify(partial))
         setUser(partial)
     }, [])
 
     const register = useCallback(async (data: RegisterRequest) => {
         await authApi.register(data)
-        // After successful registration, automatically log in
-        await login({ email: data.email, password: data.password })
     }, [login])
 
     const logout = useCallback(() => {
