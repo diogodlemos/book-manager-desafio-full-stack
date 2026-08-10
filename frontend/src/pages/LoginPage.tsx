@@ -19,7 +19,6 @@ export function LoginPage() {
         setError('')
         setLoading(true)
         try {
-            console.log("entrou no login")
             await login({ email, password })
             // navigate('/books')
         } catch (err) {

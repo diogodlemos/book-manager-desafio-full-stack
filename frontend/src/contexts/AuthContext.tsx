@@ -27,15 +27,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const [token, setToken] = useState<string | null>(() => localStorage.getItem('accessToken'))
 
     const login = useCallback(async (data: LoginRequest) => {
-        console.log('LOGIN - enviando:', data)
-
         const response = await authApi.login(data)
 
-        console.log('LOGIN - resposta:', response)
-
         const { accessToken } = response
-
-        console.log('LOGIN - accessToken:', accessToken)
 
         localStorage.setItem('accessToken', accessToken)
         setToken(accessToken)
@@ -47,7 +41,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
             id: number
         }
 
-        console.log('LOGIN - payload:', payload)
 
         const partial: UserResponse = {
             id: payload.id,
