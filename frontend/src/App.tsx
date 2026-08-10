@@ -1,10 +1,15 @@
+import {BrowserRouter, Routes, Route, Navigate} from "react-router-dom";
+import {RegisterPage} from "./pages/RegisterPage.tsx";
+
 function App() {
-  return (
-      <div>
-        <h1>Book Manager</h1>
-        <p>Gerenciador de livros</p>
-      </div>
-  )
+    return (
+        <BrowserRouter>
+            <Routes>
+                <Route path={"register"} element={<RegisterPage />} />
+                <Route path="*" element={<Navigate to="/register" replace />} />
+            </Routes>
+        </BrowserRouter>
+    )
 }
 
 export default App
