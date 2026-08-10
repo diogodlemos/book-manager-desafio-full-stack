@@ -44,7 +44,7 @@ public class BookController {
             @ApiResponse(responseCode = "404", description = "Um ou mais autores não encontrados",
                     content = @Content(schema = @Schema(implementation = ErrorResponseDTO.class)))
     })
-    @PostMapping
+    @PostMapping("/create")
     public ResponseEntity<BookResponseDTO> create(
             @Valid @RequestBody BookRequestDTO dto,
             @Parameter(hidden = true) @AuthenticationPrincipal User currentUser
