@@ -1,0 +1,27 @@
+services:
+
+  mysql:
+    image: mysql:8.4
+    container_name: bookmanager-mysql
+    environment:
+      MYSQL_DATABASE: bookmanager
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: bookmanager
+      MYSQL_PASSWORD: bookmanager
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  backend:
+    build: ./backend
+    container_name: bookmanager-backend
+    depends_on:
+      - mysql
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/bookmanager
+      SPRING_DATASOURCE_USERNAME: bookmanager
+      SPRING_DATASOURCE_PASSWORD: bookmanager
+
+volumes:
+  mysql_data:
