@@ -5,6 +5,7 @@ import {AuthProvider} from "./contexts/AuthContext.tsx";
 import {PrivateRoute} from "./components/PrivateRoute.tsx";
 import {Layout} from "./components/Layout.tsx";
 import {BooksPage} from "./pages/BooksPage.tsx";
+import {AuthorsPage} from "./pages/AuthorsPage.tsx";
 
 function App() {
     return (
@@ -18,7 +19,7 @@ function App() {
                     <Route element={<PrivateRoute />}>
                         <Route element={<Layout />}>
                             <Route path="/books" element={<BooksPage />} />
-                            {/*<Route path="/authors" element={<AuthorsPage />} />*/}
+                            <Route path="/authors" element={<AuthorsPage />} />
                         </Route>
                     </Route>
                 </Routes>

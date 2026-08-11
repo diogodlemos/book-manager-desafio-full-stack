@@ -2,12 +2,13 @@ import apiClient from './client'
 import type { BookRequest, BookResponse, PageResponse } from '../types'
 
 export const booksApi = {
-    list: (page = 0, size = 9) =>
+    list: (page = 0, size = 9, title = '') =>
         apiClient
             .get<PageResponse<BookResponse>>('/books', {
                 params: {
                     page,
                     size,
+                    ...(title.trim() && { title: title.trim() }),
                 },
             })
             .then((r) => r.data),
