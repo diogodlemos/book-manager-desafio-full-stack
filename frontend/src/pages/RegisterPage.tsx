@@ -168,8 +168,8 @@ export function RegisterPage() {
                         </label>
 
                         <span className="text-xs text-[#8b8492]">
-      Mín. 6 caracteres
-    </span>
+                            Mín. 6 caracteres
+                        </span>
                     </div>
 
                     <div className="relative">
@@ -184,18 +184,18 @@ export function RegisterPage() {
                             placeholder="••••••••"
                             disabled={loading || success}
                             className="
-        w-full rounded-xl border border-[#e5e4e7]
-        bg-white px-4 py-3 pr-11
-        text-sm text-[#08060d]
-        outline-none
-        transition
-        placeholder:text-[#aaa4b0]
-        hover:border-[#c9c5cf]
-        focus:border-[#aa3bff]
-        focus:ring-4 focus:ring-purple-100
-        disabled:cursor-not-allowed
-        disabled:bg-[#f7f6f8]
-      "
+                                w-full rounded-xl border border-[#e5e4e7]
+                                bg-white px-4 py-3 pr-11
+                                text-sm text-[#08060d]
+                                outline-none
+                                transition
+                                placeholder:text-[#aaa4b0]
+                                hover:border-[#c9c5cf]
+                                focus:border-[#aa3bff]
+                                focus:ring-4 focus:ring-purple-100
+                                disabled:cursor-not-allowed
+                                disabled:bg-[#f7f6f8]
+                              "
                         />
 
                         <button
@@ -204,16 +204,16 @@ export function RegisterPage() {
                             disabled={loading || success}
                             aria-label={showPassword ? 'Ocultar senha' : 'Mostrar senha'}
                             className="
-        absolute
-        right-3
-        top-1/2
-        -translate-y-1/2
-        text-[#8b8492]
-        hover:text-[#aa3bff]
-        transition-colors
-        disabled:cursor-not-allowed
-        disabled:opacity-50
-      "
+                                absolute
+                                right-3
+                                top-1/2
+                                -translate-y-1/2
+                                text-[#8b8492]
+                                hover:text-[#aa3bff]
+                                transition-colors
+                                disabled:cursor-not-allowed
+                                disabled:opacity-50
+                              "
                         >
                             {showPassword ? (
                                 <svg

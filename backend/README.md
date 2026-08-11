@@ -130,7 +130,7 @@ CREATE DATABASE bookmanager;
 
 Execute a aplicação com o Maven Wrapper.
 
-### Windows
+### Windows - PowerShell
 
 ```bash
 .\mvnw.cmd spring-boot:run
