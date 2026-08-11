@@ -1,75 +1,145 @@
-# React + TypeScript + Vite
+# Book Manager — Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Interface web do sistema de gerenciamento de livros, desenvolvida com **React + TypeScript + Tailwind CSS**.
 
-Currently, two official plugins are available:
+🔗 **[Acessar aplicação](https://book-manager-inky-theta.vercel.app/)**
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+> **Nota sobre o ambiente de demonstração:** o backend está hospedado no Render em um plano que pode suspender a aplicação após um período de inatividade (*cold start*). Quando isso ocorre, a primeira requisição pode levar alguns segundos enquanto a API é inicializada. Após a inicialização, a aplicação funciona normalmente.
 
-## React Compiler
+A aplicação consome a API REST do backend utilizando autenticação JWT.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## Funcionalidades
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+* Cadastro e login de usuários
+* Autenticação com JWT
+* CRUD de livros
+* CRUD de autores
+* Associação de autores aos livros
+* Paginação e busca por título
+* Proteção de rotas autenticadas
+* Validação de formulários
+* Tratamento de erros da API
+* Layout responsivo
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## Tecnologias
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+* React 18
+* TypeScript
+* Vite
+* React Router
+* Axios
+* Tailwind CSS
 
+---
+
+## Pré-requisitos
+
+* Node.js 18+
+* npm 9+
+* Backend da aplicação em execução
+
+---
+
+## Configuração
+
+Crie um arquivo `.env` na pasta `frontend`:
+
+```env
+VITE_API_URL=http://localhost:8080
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+O valor deve apontar para a URL da API backend.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+---
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Executando localmente
 
+Instale as dependências:
+
+```bash
+npm install
 ```
+
+Inicie o servidor de desenvolvimento:
+
+```bash
+npm run dev
+```
+
+A aplicação estará disponível em:
+
+```text
+http://localhost:5173
+```
+
+---
+
+## Scripts
+
+| Comando           | Descrição                            |
+| ----------------- | ------------------------------------ |
+| `npm run dev`     | Inicia o servidor de desenvolvimento |
+| `npm run build`   | Gera o build de produção             |
+| `npm run preview` | Executa o build localmente           |
+
+---
+
+## Rotas
+
+| Rota              | Acesso      | Descrição                  |
+| ----------------- | ----------- | -------------------------- |
+| `/register`       | Público     | Cadastro de usuário        |
+| `/login`          | Público     | Login                      |
+| `/books`          | Autenticado | Listagem e busca de livros |
+| `/books/new`      | Autenticado | Cadastro de livro          |
+| `/books/:id/edit` | Autenticado | Edição de livro            |
+| `/authors`        | Autenticado | Gerenciamento de autores   |
+
+---
+
+## Autenticação
+
+O frontend utiliza JWT fornecido pelo backend.
+
+Após o login, o token é armazenado no `localStorage` e enviado automaticamente nas requisições autenticadas.
+
+Rotas protegidas redirecionam usuários não autenticados para `/login`.
+
+---
+
+## Estrutura
+
+```text
+frontend/
+└── src/
+    ├── api/          # Comunicação com a API
+    ├── components/   # Componentes reutilizáveis
+    ├── contexts/     # Contextos da aplicação
+    ├── pages/        # Páginas
+    ├── types/        # Tipos TypeScript
+    └── utils/        # Funções auxiliares
+```
+
+---
+
+## Backend
+
+O backend da aplicação está disponível na pasta:
+
+```text
+../backend
+```
+
+Consulte o [README do backend](../backend/README.md) para instruções de configuração e execução.
+
+---
+
+## Autor
+
+**Diogo Lemos**
+
+Projeto desenvolvido como parte de um desafio técnico de processo seletivo.
