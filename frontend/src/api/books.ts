@@ -17,7 +17,7 @@ export const booksApi = {
         apiClient.get<BookResponse>(`/books/${id}`).then((r) => r.data),
 
     create: (data: BookRequest) =>
-        apiClient.post<BookResponse>('/books', data).then((r) => r.data),
+        apiClient.post<BookResponse>('/books/create', data).then((r) => r.data),
 
     update: (id: number, data: BookRequest) =>
         apiClient.put<BookResponse>(`/books/${id}`, data).then((r) => r.data),

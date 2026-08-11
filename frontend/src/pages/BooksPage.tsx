@@ -5,10 +5,12 @@ import { Loading } from '../components/Loading.tsx'
 import { booksApi } from '../api/books.ts'
 import { extractApiError } from '../utils/error.ts'
 import { Modal } from '../components/Modal.tsx'
-import { BookForm } from '../components/BookForm.tsx'
+import { useNavigate } from 'react-router-dom'
 
 
 export function BooksPage() {
+  const navigate = useNavigate()
+
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(true)
   const [books, setBooks] = useState<BookResponse[]>([])
@@ -23,9 +25,6 @@ export function BooksPage() {
     useState<BookResponse | null>(null)
 
   const [deleteError, setDeleteError] = useState('')
-
-  const [showForm, setShowForm] = useState(false)
-  const [editBook, setEditBook] = useState<BookResponse | null>(null)
 
   async function fetchBooks(pageNumber = 0, searchTerm = search) {
     try {
@@ -176,29 +175,12 @@ export function BooksPage() {
     )
   }
 
-  function openCreate() {
-    setEditBook(null)
-    setShowForm(true)
-  }
-
-  function openEdit(book: BookResponse) {
-    setEditBook(book)
-    setShowForm(true)
-  }
-
-  function closeForm() {
-    setShowForm(false)
-    setEditBook(null)
-  }
-
   async function handleDelete() {
     if (!deleteConfirm) return
 
     try {
       await booksApi.delete(deleteConfirm.id)
 
-      // Se excluiu o último item da página atual,
-      // volta uma página para evitar uma página vazia.
       if (books.length === 1 && page > 0) {
         setPage((prev) => prev - 1)
       } else {
@@ -209,18 +191,6 @@ export function BooksPage() {
     } catch (err) {
       setDeleteError(extractApiError(err))
     }
-  }
-
-  function onSaved(book: BookResponse) {
-    setBooks((prev) => {
-      const exists = prev.find((item) => item.id === book.id)
-
-      return exists
-        ? prev.map((item) => (item.id === book.id ? book : item))
-        : [book, ...prev]
-    })
-
-    closeForm()
   }
 
   return (
@@ -245,7 +215,7 @@ export function BooksPage() {
 
         <button
           type="button"
-          onClick={openCreate}
+          onClick={() => void navigate('/books/new')}
           className="
             w-full rounded-xl
             bg-[#aa3bff]
@@ -450,7 +420,7 @@ export function BooksPage() {
 
           <button
             type="button"
-            onClick={openCreate}
+            onClick={() => void navigate('/books/new')}
             className="
               mt-6
               w-full rounded-xl
@@ -495,7 +465,7 @@ export function BooksPage() {
               <BookCard
                 key={book.id}
                 book={book}
-                onEdit={() => openEdit(book)}
+                onEdit={() => void navigate(`/books/${book.id}/edit`)}
                 onDelete={() => {
                   setDeleteError('')
                   setDeleteConfirm(book)
@@ -589,19 +559,6 @@ ${
             </div>
           )}
         </>
-      )}
-
-      {showForm && (
-        <Modal
-          title={editBook ? 'Editar Livro' : 'Novo Livro'}
-          onClose={closeForm}
-        >
-          <BookForm
-            initial={editBook}
-            onSaved={onSaved}
-            onCancel={closeForm}
-          />
-        </Modal>
       )}
 
       {deleteConfirm && (
