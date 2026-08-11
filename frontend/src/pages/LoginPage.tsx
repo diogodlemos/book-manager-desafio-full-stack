@@ -20,7 +20,7 @@ export function LoginPage() {
         setLoading(true)
         try {
             await login({ email, password })
-            // navigate('/books')
+            navigate('/books')
         } catch (err) {
             setError(extractApiError(err))
         } finally {
