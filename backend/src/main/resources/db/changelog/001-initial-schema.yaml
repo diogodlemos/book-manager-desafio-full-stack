@@ -1,0 +1,10 @@
+databaseChangeLog:
+
+  - changeSet:
+      id: 001-initial-schema
+      author: diogo
+
+      changes:
+        - sqlFile:
+            path: db/changelog/schema.sql
+            relativeToChangelogFile: false
