@@ -166,7 +166,7 @@ Dessa forma, o Hibernate apenas valida o schema, enquanto a criação e evoluç�
 
 ### Diagrama
 
-![Diagrama do banco de dados](./docs/bookmanagerSchema.png)
+![Diagrama do banco de dados](../docs/bookmanagerSchema.png)
 
 ---
 
