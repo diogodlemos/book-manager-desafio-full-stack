@@ -58,6 +58,8 @@ O valor deve apontar para a URL da API backend.
 
 ## Executando localmente
 
+Certifique-se de estar na pasta `frontend` antes de executar os comandos abaixo.
+
 Instale as dependências:
 
 ```bash
@@ -69,6 +71,7 @@ Inicie o servidor de desenvolvimento:
 ```bash
 npm run dev
 ```
+
 
 A aplicação estará disponível em:
 

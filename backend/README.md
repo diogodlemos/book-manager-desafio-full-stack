@@ -97,7 +97,7 @@ jdbc:mysql://localhost:3306/bookmanager
 Na raiz do projeto:
 
 ```bash
-docker compose up --build
+docker compose up --build -d
 ```
 
 A aplicação estará disponível em:
