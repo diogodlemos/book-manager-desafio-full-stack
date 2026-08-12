@@ -259,48 +259,6 @@ book-manager.postman_collection.json
 
 Ela pode ser importada diretamente no Postman para testar os endpoints da API.
 
----
-
-## Estrutura
-
-```text
-backend/
-└── src/
-    └── main/
-        ├── java/com/bookmanager/
-        │   ├── config/
-        │   ├── controllers/
-        │   ├── dto/
-        │   ├── entities/
-        │   ├── exceptions/
-        │   ├── repositories/
-        │   ├── security/
-        │   └── services/
-        │
-        └── resources/
-            ├── db/changelog/
-            └── application.properties
-```
-
----
-
-## Arquitetura
-
-O backend segue uma arquitetura em camadas:
-
-```text
-Controller
-    ↓
-Service
-    ↓
-Repository
-    ↓
-MySQL
-```
-
-A autenticação é realizada através de um filtro JWT antes do acesso aos endpoints protegidos.
-
----
 
 ## Autor
 

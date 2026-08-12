@@ -21,7 +21,7 @@ Aplicação full-stack para gerenciamento de livros com autenticação JWT. Cada
 
 ### Infraestrutura
 - Docker + Docker Compose
-- Deploy backend: Railway / Render (com `docker-compose.aiven.yml` para banco externo Aiven)
+- Deploy backend: Render (com `docker-compose.aiven.yml` para banco externo Aiven)
 - Deploy frontend: Vercel
 
 ---
@@ -38,22 +38,6 @@ Aplicação full-stack para gerenciamento de livros com autenticação JWT. Cada
 - Versionamento do banco com Liquibase
 - Dockerização do backend e do banco de dados
 
----
-
-## Estrutura do projeto
-
-```
-book-manager-desafio-full-stack/
-├── backend/          # API Spring Boot
-├── frontend/         # SPA React + TypeScript
-├── docs/             # Diagrama do banco de dados
-├── docker-compose.yml             # Backend + MySQL local
-├── docker-compose.aiven.yml       # Backend com banco externo
-├── .env.example      # Variáveis de ambiente necessárias
-└── book-manager.postman_collection.json
-```
-
----
 
 ## Como executar com Docker (recomendado)
 

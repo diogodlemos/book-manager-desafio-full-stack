@@ -114,20 +114,6 @@ Rotas protegidas redirecionam usuários não autenticados para `/login`.
 
 ---
 
-## Estrutura
-
-```text
-frontend/
-└── src/
-    ├── api/          # Comunicação com a API
-    ├── components/   # Componentes reutilizáveis
-    ├── contexts/     # Contextos da aplicação
-    ├── pages/        # Páginas
-    ├── types/        # Tipos TypeScript
-    └── utils/        # Funções auxiliares
-```
-
----
 
 ## Backend
 
