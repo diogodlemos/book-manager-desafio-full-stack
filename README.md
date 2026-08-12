@@ -69,11 +69,12 @@ cp .env.example .env
 ```
 
 ```env
+
 SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/bookmanager
 SPRING_DATASOURCE_USERNAME=root
-SPRING_DATASOURCE_PASSWORD=sua_senha
-MYSQL_ROOT_PASSWORD=sua_senha
-JWT_SECRET=sua_chave_secreta_jwt
+SPRING_DATASOURCE_PASSWORD=Teste123**
+MYSQL_ROOT_PASSWORD=Teste123**
+JWT_SECRET=minha-secreta-para-o-desafio-book-manager
 ```
 
 ### 2. Suba os containers
