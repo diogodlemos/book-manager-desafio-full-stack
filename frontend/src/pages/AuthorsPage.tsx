@@ -126,7 +126,6 @@ export function AuthorsPage() {
     return (
         <div className="w-full">
 
-            {/* Header */}
             <div
                 className="
                     mb-6
@@ -183,14 +182,12 @@ export function AuthorsPage() {
                 </button>
             </div>
 
-            {/* Erro */}
             {error && (
                 <div className="mb-6">
                     <Alert message={error} />
                 </div>
             )}
 
-            {/* Loading */}
             {loading ? (
                 <div
                     className="
@@ -204,7 +201,6 @@ export function AuthorsPage() {
                 </div>
             ) : authors.length === 0 ? (
 
-                /* Estado vazio */
                 <div
                     className="
                         flex flex-col
@@ -275,7 +271,6 @@ export function AuthorsPage() {
 
             ) : (
 
-                /* Lista */
                 <div
                     className="
                         overflow-hidden
@@ -286,7 +281,6 @@ export function AuthorsPage() {
                         shadow-[0_8px_30px_rgba(30,20,50,0.04)]
                     "
                 >
-                    {/* Cabeçalho da tabela */}
                     <div
                         className="
                             hidden
@@ -332,7 +326,6 @@ ${
 }
 `}
                             >
-                                {/* Nome */}
                                 <div className="min-w-0">
                                     <span
                                         className="
@@ -347,7 +340,6 @@ ${
                                     </span>
                                 </div>
 
-                                {/* Ações */}
                                 <div
                                     className="
                                         flex
@@ -414,7 +406,6 @@ ${
                 </div>
             )}
 
-            {/* Modal de criação/edição */}
             {showForm && (
                 <Modal
                     title={
@@ -549,7 +540,6 @@ ${
                 </Modal>
             )}
 
-            {/* Modal de exclusão */}
             {deleteTarget && (
                 <Modal
                     title="Confirmar exclusão"
@@ -565,7 +555,7 @@ ${
                                 text-[#6b6375]
                             "
                         >
-                            Excluir o autor{' '}
+                            Tem certeza que deseja excluir o autor{' '}
                             <strong
                                 className="
                                     font-semibold
@@ -574,8 +564,7 @@ ${
                             >
                                 "{deleteTarget.name}"
                             </strong>
-                            ? Os livros associados a ele
-                            perderão esse vínculo.
+                            ? Esta ação não poderá ser desfeita.
                         </p>
 
                         {deleteError && (

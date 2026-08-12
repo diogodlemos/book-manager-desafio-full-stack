@@ -3,8 +3,10 @@ package com.bookmanager.services;
 import com.bookmanager.dto.AuthorRequestDTO;
 import com.bookmanager.dto.AuthorResponseDTO;
 import com.bookmanager.entities.Author;
+import com.bookmanager.exceptions.AuthorHasBooksException;
 import com.bookmanager.exceptions.ResourceNotFoundException;
 import com.bookmanager.repositories.AuthorRepository;
+import com.bookmanager.repositories.BookRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,7 @@ import java.util.List;
 public class AuthorService {
 
     private final AuthorRepository authorRepository;
+    private final BookRepository bookRepository;
 
     public AuthorResponseDTO create(AuthorRequestDTO dto) {
         Author author = new Author();
@@ -44,6 +47,15 @@ public class AuthorService {
 
     public void delete(Long id) {
         Author author = findOrThrow(id);
+
+        long bookCount = bookRepository.countByAuthorId(id);
+        if (bookCount > 0) {
+            throw new AuthorHasBooksException(
+                    "Não é possível excluir o autor \"" + author.getName() +
+                    "\" pois ele possui " + bookCount +
+                    " livro(s) cadastrado(s). Remova os livros associados antes de excluir o autor.");
+        }
+
         authorRepository.delete(author);
     }
 

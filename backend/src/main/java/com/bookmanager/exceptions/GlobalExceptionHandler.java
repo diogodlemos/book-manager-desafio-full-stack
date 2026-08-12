@@ -65,6 +65,23 @@ public class GlobalExceptionHandler {
     }
 
 
+    @ExceptionHandler(AuthorHasBooksException.class)
+    public ResponseEntity<ErrorResponseDTO> handleAuthorHasBooks(
+            AuthorHasBooksException exception
+    ) {
+        log.error(exception.getMessage(), exception);
+
+        ErrorResponseDTO error = new ErrorResponseDTO(
+                HttpStatus.CONFLICT.value(),
+                exception.getMessage(),
+                LocalDateTime.now()
+        );
+
+        return ResponseEntity
+                .status(HttpStatus.CONFLICT)
+                .body(error);
+    }
+
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<ErrorResponseDTO> handleResourceNotFound(
             ResourceNotFoundException exception
